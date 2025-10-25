@@ -29,7 +29,14 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          # Use "npm ci" when a lockfile is present for reproducible installs.
+          # Fall back to "npm install" when no lockfile exists (e.g., in PRs or forks).
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Build
         run: npm run build
