@@ -15,10 +15,17 @@
     "@biomejs/biome": "2.2.3",
     "@eslint/js": "^9.35.0",
     "@rsbuild/core": "^1.5.14",
+    "@rsbuild/plugin-react": "^1.4.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "eslint": "^9.35.0",
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.43.0"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }
