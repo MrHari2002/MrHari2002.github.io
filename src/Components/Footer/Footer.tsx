@@ -49,7 +49,7 @@ export default function Footer() {
           alignItems="center"
         >
           <Typography variant="body2" color="text.secondary">
-            © {new Date().getFullYear()} MrHari2002. All rights reserved.
+            © {new Date().getFullYear()} Hengrui Jia. All rights reserved.
           </Typography>
 
           <Stack direction="row" spacing={2}>
