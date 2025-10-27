@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
     AppBar,
     Box,
@@ -88,8 +89,8 @@ export default function Header() {
                             {navItems.map((item) => (
                                 <MenuItem
                                     key={item}
-                                    component="a"
-                                    href={`#${item.toLowerCase()}`}
+                                    component={Link}
+                                    to={`/${item.toLowerCase()}`}
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">{item}</Typography>
@@ -122,7 +123,8 @@ export default function Header() {
                         {navItems.map((item) => (
                             <Button
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
+                                component={Link}
+                                to={`/${item.toLowerCase()}`}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
