@@ -46,6 +46,7 @@ export default function Contact() {
         subject: '',
         message: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: '',
@@ -63,19 +64,55 @@ export default function Contact() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        setSnackbar({
-            open: true,
-            message: 'Message sending has not been activated yet.',
-            severity: 'error',
-        });
+        try {
+            setIsSubmitting(true);
 
-        // Reset form
-        setFormData({
-            name: '',
-            email: '',
-            subject: '',
-            message: '',
-        });
+            const resp = await fetch('http://localhost:8080/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            // Try to parse response message if provided
+            let msg = '';
+            try {
+                const data = await resp.clone().json();
+                msg = (data && (data.message || data.msg)) || '';
+            } catch (_) {
+                try {
+                    msg = await resp.clone().text();
+                } catch {
+                    msg = '';
+                }
+            }
+
+            if (!resp.ok) {
+                throw new Error(msg || `Failed to send message (status ${resp.status})`);
+            }
+
+            setSnackbar({
+                open: true,
+                message: msg || 'Message sent successfully.',
+                severity: 'success',
+            });
+
+            // Reset form on success
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        } catch (err: any) {
+            setSnackbar({
+                open: true,
+                message:
+                    err?.message?.includes('Failed to fetch')
+                        ? 'Unable to reach server at localhost:8080. Is it running?'
+                        : err?.message || 'Failed to send your message.',
+                severity: 'error',
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleCloseSnackbar = () => {
@@ -143,8 +180,9 @@ export default function Contact() {
                                         variant="contained"
                                         size="large"
                                         sx={{ mt: 2 }}
+                                        disabled={isSubmitting}
                                     >
-                                        Send Message
+                                        {isSubmitting ? 'Sending…' : 'Send Message'}
                                     </Button>
                                 </Stack>
                             </form>
