@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API } from '../config';
 import {
     Box,
     Container,
@@ -67,7 +68,7 @@ export default function Contact() {
         try {
             setIsSubmitting(true);
 
-            const resp = await fetch('http://localhost:8080/api/contact', {
+            const resp = await fetch(API.contact, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ export default function Contact() {
                 open: true,
                 message:
                     err?.message?.includes('Failed to fetch')
-                        ? 'Unable to reach server at localhost:8080. Is it running?'
+                        ? `Unable to reach server. Check that the backend is running and CORS allows this origin.`
                         : err?.message || 'Failed to send your message.',
                 severity: 'error',
             });
