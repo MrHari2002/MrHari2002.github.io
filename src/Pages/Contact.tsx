@@ -124,7 +124,7 @@ export default function Contact() {
         <Container maxWidth="lg">
             <Box sx={{ py: 8 }}>
                 <Typography variant="h3" component="h1" gutterBottom align="center">
-                    Get in Touch (Not activated)
+                    Get in Touch
                 </Typography>
                 <Typography variant="subtitle1" align="center" color="text.secondary" paragraph>
                     Feel free to reach out to me through any of these channels
