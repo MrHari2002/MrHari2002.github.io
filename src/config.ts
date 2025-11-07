@@ -17,7 +17,7 @@ const isDevEnv = (() => {
 
 export const CONTACT_ENDPOINT = isDevEnv
   ? 'http://localhost:8080/api/contact'
-  : 'http://ec2-3-144-193-90.us-east-2.compute.amazonaws.com:8080/api/contact';
+  : 'https://harihomepage.zandzmovie.online:443/api/contact';
 
 export const API = {
   contact: CONTACT_ENDPOINT,
